@@ -21,6 +21,7 @@ Return a JSON object with exactly this structure:
   "originalWord": "${word}",
   "translatedWord": "<the ${toLanguage} translation>",
   "phonemes": ["<individual sound unit using synthetic phonics, e.g. for 'flower': 'fl', 'ow', 'er'>", ...],
+  "simplePronounciation": "<easy-to-read phonetic spelling with stressed syllable in caps, e.g. 'FLAW-er' or 'FLÁU-er'>",
   "syllables": ["<syllable1>", "<syllable2>", ...],
   "syllableBreakdown": "<hyphen-separated syllables, e.g. flow-er>",
   "partOfSpeech": "<noun|verb|adjective|adverb|etc>",

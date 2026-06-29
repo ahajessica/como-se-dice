@@ -52,8 +52,8 @@ export default function Flashcard({ data, fromLang, toLang }: Props) {
                 </span>
               ))}
             </div>
-            <p className="mt-3 text-sm text-indigo-400 font-medium">
-              {data.phonemes.join(" · ")} = <span className="text-indigo-700 font-bold">{data.translatedWord}</span>
+            <p className="mt-3 text-2xl font-bold tracking-wide text-indigo-600">
+              {data.simplePronounciation}
             </p>
           </div>
 

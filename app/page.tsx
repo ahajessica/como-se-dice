@@ -9,6 +9,7 @@ export type WordData = {
   originalWord: string;
   translatedWord: string;
   phonemes: string[];
+  simplePronounciation: string;
   syllables: string[];
   syllableBreakdown: string;
   partOfSpeech: string;
