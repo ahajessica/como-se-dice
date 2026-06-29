@@ -48,9 +48,8 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ word, fromLanguage: fromLang, toLanguage: toLang }),
       });
-      if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      if (!res.ok || data.error) throw new Error(data.error ?? `Server error ${res.status}`);
       setWordData(data);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
