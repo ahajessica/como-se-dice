@@ -20,7 +20,7 @@ Return a JSON object with exactly this structure:
 {
   "originalWord": "${word}",
   "translatedWord": "<the ${toLanguage} translation>",
-  "phonetics": "<IPA pronunciation, e.g. /ˈflaʊər/>",
+  "phonemes": ["<individual sound unit using synthetic phonics, e.g. for 'flower': 'fl', 'ow', 'er'>", ...],
   "syllables": ["<syllable1>", "<syllable2>", ...],
   "syllableBreakdown": "<hyphen-separated syllables, e.g. flow-er>",
   "partOfSpeech": "<noun|verb|adjective|adverb|etc>",
@@ -31,9 +31,9 @@ Return a JSON object with exactly this structure:
     { "sentence": "<example in ${toLanguage}>", "translation": "<translation in ${fromLanguage}>" }
   ],
   "similarSoundingWords": [
-    { "word": "<word>", "phonetics": "<IPA>", "meaning": "<brief meaning in ${fromLanguage}>" },
-    { "word": "<word>", "phonetics": "<IPA>", "meaning": "<brief meaning in ${fromLanguage}>" },
-    { "word": "<word>", "phonetics": "<IPA>", "meaning": "<brief meaning in ${fromLanguage}>" }
+    { "word": "<word>", "phonemes": ["<sound1>", "<sound2>", ...], "meaning": "<brief meaning in ${fromLanguage}>" },
+    { "word": "<word>", "phonemes": ["<sound1>", "<sound2>", ...], "meaning": "<brief meaning in ${fromLanguage}>" },
+    { "word": "<word>", "phonemes": ["<sound1>", "<sound2>", ...], "meaning": "<brief meaning in ${fromLanguage}>" }
   ],
   "tips": "<1-2 sentence memory tip or pronunciation tip in ${fromLanguage}>"
 }

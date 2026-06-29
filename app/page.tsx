@@ -8,13 +8,13 @@ import WordDetails from "@/components/WordDetails";
 export type WordData = {
   originalWord: string;
   translatedWord: string;
-  phonetics: string;
+  phonemes: string[];
   syllables: string[];
   syllableBreakdown: string;
   partOfSpeech: string;
   definition: string;
   exampleSentences: { sentence: string; translation: string }[];
-  similarSoundingWords: { word: string; phonetics: string; meaning: string }[];
+  similarSoundingWords: { word: string; phonemes: string[]; meaning: string }[];
   tips: string;
 };
 

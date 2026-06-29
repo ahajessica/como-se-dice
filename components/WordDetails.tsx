@@ -38,7 +38,7 @@ export default function WordDetails({ data, fromLang, toLang }: Props) {
           {data.similarSoundingWords.map((w, i) => (
             <div key={i} className="bg-white px-5 py-4">
               <p className="text-xl font-bold text-purple-700">{w.word}</p>
-              <p className="text-sm font-mono text-gray-400 mt-0.5">{w.phonetics}</p>
+              <p className="text-sm text-purple-400 mt-0.5">{w.phonemes?.join(" · ")}</p>
               <p className="text-sm text-gray-600 mt-2">{w.meaning}</p>
             </div>
           ))}
