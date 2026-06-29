@@ -1,10 +1,6 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
 export const maxDuration = 30;
-
-const client = new Anthropic();
 
 export async function POST(req: NextRequest) {
   const { word, fromLanguage, toLanguage } = await req.json();
@@ -13,8 +9,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ error: "ANTHROPIC_API_KEY is not set on the server" }, { status: 500 });
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({ error: "ANTHROPIC_API_KEY is not configured" }, { status: 500 });
   }
 
   const prompt = `You are a language learning assistant. A ${fromLanguage} speaker wants to learn the ${toLanguage} word for "${word}".
@@ -44,15 +41,29 @@ Return a JSON object with exactly this structure:
 Only return valid JSON, no markdown, no extra text.`;
 
   try {
-    const message = await client.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 1024,
-      messages: [{ role: "user", content: prompt }],
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 1024,
+        messages: [{ role: "user", content: prompt }],
+      }),
     });
 
-    const text = message.content[0].type === "text" ? message.content[0].text : "";
-    const data = JSON.parse(text);
-    return NextResponse.json(data);
+    if (!response.ok) {
+      const errText = await response.text();
+      return NextResponse.json({ error: `Anthropic API error ${response.status}: ${errText}` }, { status: 502 });
+    }
+
+    const data = await response.json();
+    const text = data.content?.[0]?.text ?? "";
+    const parsed = JSON.parse(text);
+    return NextResponse.json(parsed);
   } catch (e) {
     const message = e instanceof Error ? e.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
